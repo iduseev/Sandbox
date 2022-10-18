@@ -10,7 +10,7 @@ import requests
 
 import CAT_FACT_API
 
-# This script is intended to show how multithread request can be sent using queue and via ThreadPoolExecutor
+""" This script is intended to show how multithread request can be sent using queue and via ThreadPoolExecutor """
 
 
 class MultithreadRequest:
@@ -23,7 +23,8 @@ class MultithreadRequest:
         print("Starting launchung multithread process ...")
         # execute multithreading via ThreadPoolExecutor
         with ThreadPoolExecutor(max_workers=self.thread_pool_size) as executor:
-            for _ in range(self.thread_pool_size):
+            for i in range(self.thread_pool_size):
+                print(f"\nRunning thread # {i}\n")
                 executor.submit(
                     self.execute_task_thread_local
                 )
@@ -74,7 +75,7 @@ if __name__ == "__main__":
         multithread_request = MultithreadRequest(tasks=cat_facts_tasks)  # getting instance of a class
         multithread_request.launch_multithread_process()
         print("\n\nShowing results ...")
-        print(f"\n{set(multithread_request.results)}\n")  # remaining only unique results
+        print(f"\n{list(set(multithread_request.results))}\n")  # remaining only unique results
     except Exception as e:
         print("########    GLOBAL ERROR HANDLER    ########")
         print(f"Following exception occured: {e}")
